@@ -1,0 +1,23 @@
+name: "Clasp Deploy"
+description: "Custom action to deploy using clasp"
+inputs:
+  ACCESS_TOKEN:
+    description: "Access Token"
+    required: true
+  ID_TOKEN:
+    description: "ID Token"
+    required: true
+  REFRESH_TOKEN:
+    description: "Refresh Token"
+    required: true
+  CLIENTID:
+    description: "Client ID"
+    required: true
+  CLIENTSECRET:
+    description: "Client Secret"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - run: npx ts-node index.ts
+      shell: bash
