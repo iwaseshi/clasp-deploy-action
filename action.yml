@@ -22,6 +22,14 @@ runs:
     - name: Install dependencies
       run: npm install
       shell: bash
+    - name: Set environment variables
+      run: |
+        echo "ACCESS_TOKEN=${{ inputs.ACCESS_TOKEN }}" >> $GITHUB_ENV
+        echo "ID_TOKEN=${{ inputs.ID_TOKEN }}" >> $GITHUB_ENV
+        echo "REFRESH_TOKEN=${{ inputs.REFRESH_TOKEN }}" >> $GITHUB_ENV
+        echo "CLIENTID=${{ inputs.CLIENTID }}" >> $GITHUB_ENV
+        echo "CLIENTSECRET=${{ inputs.CLIENTSECRET }}" >> $GITHUB_ENV
+      shell: bash
     - name: Create clasprc.json
       run: npx ts-node ${{ github.action_path }}/index.ts
       shell: bash
