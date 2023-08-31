@@ -26,11 +26,11 @@ jobs:
         run: npm run build
 
       - name: Push to GitHub
+              - name: Push to GitHub
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add dist/
           git commit -m "Build for release"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_PAT }}
+          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/iwaseshi/clasp-deploy-action.git HEAD:main
+
