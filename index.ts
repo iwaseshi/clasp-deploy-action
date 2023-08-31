@@ -1,4 +1,5 @@
 import fs from "fs";
+import os from "os";
 import path from "path";
 
 const scopes = [
@@ -32,4 +33,4 @@ const data = {
     isLocalCreds: false,
 };
 
-fs.writeFileSync(path.resolve("~/.clasprc.json"), JSON.stringify(data, null, 2));
+fs.writeFileSync(path.join(os.homedir(), ".clasprc.json"), JSON.stringify(data, null, 2));
