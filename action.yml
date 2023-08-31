@@ -20,7 +20,7 @@ runs:
   using: "composite"
   steps:
     - name: Install dependencies
-      run: npm ci
+      run: npm install
       shell: bash
     - name: Set environment variables
       run: |
@@ -31,5 +31,5 @@ runs:
         echo "CLIENTSECRET=${{ inputs.CLIENTSECRET }}" >> $GITHUB_ENV
       shell: bash
     - name: Create clasprc.json
-      run: node dist/index.js
+      run: npx ts-node ${{ github.action_path }}/index.ts
       shell: bash
