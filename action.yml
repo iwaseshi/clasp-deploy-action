@@ -16,6 +16,9 @@ inputs:
   CLIENTSECRET:
     description: "Client Secret"
     required: true
+  CLASP_SCRIPT_ID:
+    description: "Clasp Script ID"
+    required: false
 runs:
   using: "composite"
   steps:
@@ -37,3 +40,5 @@ runs:
     - name: deploy
       run: echo "y" | yes | head -n 1 | npx clasp push
       shell: bash
+      env:
+        CLASP_SCRIPT_ID: ${{ inputs.CLASP_SCRIPT_ID }}
