@@ -28,8 +28,8 @@ runs:
   steps:
     - name: pre processing
       run: |
-        pwd
-        npm install --frozen-lockfile
+        cd ${{ github.action_path }}/action-dir
+        yarn install --frozen-lockfile
         ls node_modules/.bin
       shell: bash
     - name: set environment variables
@@ -41,10 +41,13 @@ runs:
         echo "CLIENTSECRET=${{ inputs.CLIENTSECRET }}" >> $GITHUB_ENV
       shell: bash
     - name: create clasprc.json
-      run: npx ts-node ${{ github.action_path }}/index.ts
+      run: |
+        cd ${{ github.action_path }}/action-dir
+        npx ts-node ./index.ts
       shell: bash
     - name: deploy
       run: |
+        cd ${{ github.action_path }}/action-dir
         echo '{"scriptId": "${{ inputs.CLASP_SCRIPT_ID }}", "rootDir": "${{ inputs.ROOT_DIR }}"}' > .clasp.json
         echo "y" | npx clasp push
       shell: bash
