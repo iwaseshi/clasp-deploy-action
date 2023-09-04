@@ -29,7 +29,6 @@ runs:
     - name: pre processing
       run: |
         yarn install --frozen-lockfile
-        echo "./node_modules/.bin/" >> $GITHUB_PATH
       shell: bash
     - name: set environment variables
       run: |
@@ -45,5 +44,5 @@ runs:
     - name: deploy
       run: |
         echo '{"scriptId": "${{ inputs.CLASP_SCRIPT_ID }}", "rootDir": "${{ inputs.ROOT_DIR }}"}' > .clasp.json
-        echo "y" | npx clasp push
+        echo "y" | ./node_modules/.bin/clasp push
       shell: bash
