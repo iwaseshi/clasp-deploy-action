@@ -16,9 +16,6 @@ inputs:
   CLIENTSECRET:
     description: "Client Secret"
     required: true
-  CLASP_SCRIPT_ID:
-    description: "Clasp Script ID"
-    required: false
 runs:
   using: "composite"
   steps:
@@ -33,11 +30,12 @@ runs:
         echo "REFRESH_TOKEN=${{ inputs.REFRESH_TOKEN }}" >> $GITHUB_ENV
         echo "CLIENTID=${{ inputs.CLIENTID }}" >> $GITHUB_ENV
         echo "CLIENTSECRET=${{ inputs.CLIENTSECRET }}" >> $GITHUB_ENV
-        echo "CLASP_SCRIPT_ID=${{ inputs.CLASP_SCRIPT_ID }}" >> $GITHUB_ENV
       shell: bash
     - name: create clasprc.json
       run: npx ts-node ${{ github.action_path }}/index.ts
       shell: bash
     - name: deploy
-      run: echo "y" | yes | head -n 1 | npx clasp push
+      run: |
+        echo '{"scriptId": "${{ inputs.CLASP_SCRIPT_ID }}", "rootDir": "dist"}' > .clasp.json
+        echo "y" | yes | head -n 1 | npx clasp push
       shell: bash
