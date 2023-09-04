@@ -26,12 +26,14 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: pre processing
+    - name: Navigate to action-dir and install dependencies
       run: |
-        cd ${{ github.action_path }}/action-dir
+        original_dir=$(pwd)
+        cd ${{ github.action_path }}
         yarn install --frozen-lockfile
-        ls node_modules/.bin
+        cd $original_dir
       shell: bash
+
     - name: set environment variables
       run: |
         echo "ACCESS_TOKEN=${{ inputs.ACCESS_TOKEN }}" >> $GITHUB_ENV
@@ -40,14 +42,14 @@ runs:
         echo "CLIENTID=${{ inputs.CLIENTID }}" >> $GITHUB_ENV
         echo "CLIENTSECRET=${{ inputs.CLIENTSECRET }}" >> $GITHUB_ENV
       shell: bash
+
     - name: create clasprc.json
       run: |
-        cd ${{ github.action_path }}/action-dir
-        npx ts-node ./index.ts
+        npx ts-node ${{ github.action_path }}/index.ts
       shell: bash
+
     - name: deploy
       run: |
-        cd ${{ github.action_path }}/action-dir
         echo '{"scriptId": "${{ inputs.CLASP_SCRIPT_ID }}", "rootDir": "${{ inputs.ROOT_DIR }}"}' > .clasp.json
         echo "y" | npx clasp push
       shell: bash
