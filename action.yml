@@ -35,3 +35,4 @@ runs:
       shell: bash
     - name: deploy
       run: echo "y" | yes | head -n 1 | clasp push
+      shell: bash
