@@ -22,6 +22,7 @@ runs:
     - name: pre processing
       run: |
         yarn install --frozen-lockfile
+      shell: bash
     - name: set environment variables
       run: |
         echo "ACCESS_TOKEN=${{ inputs.ACCESS_TOKEN }}" >> $GITHUB_ENV
