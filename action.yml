@@ -19,10 +19,10 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Install dependencies
-      run: npm install
-      shell: bash
-    - name: Set environment variables
+    - name: pre processing
+      run: |
+        yarn install --frozen-lockfile
+    - name: set environment variables
       run: |
         echo "ACCESS_TOKEN=${{ inputs.ACCESS_TOKEN }}" >> $GITHUB_ENV
         echo "ID_TOKEN=${{ inputs.ID_TOKEN }}" >> $GITHUB_ENV
@@ -30,6 +30,8 @@ runs:
         echo "CLIENTID=${{ inputs.CLIENTID }}" >> $GITHUB_ENV
         echo "CLIENTSECRET=${{ inputs.CLIENTSECRET }}" >> $GITHUB_ENV
       shell: bash
-    - name: Create clasprc.json
+    - name: create clasprc.json
       run: npx ts-node ${{ github.action_path }}/index.ts
       shell: bash
+    - name: deploy
+      run: echo "y" | yes | head -n 1 | clasp push
