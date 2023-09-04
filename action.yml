@@ -35,5 +35,5 @@ runs:
       run: npx ts-node ${{ github.action_path }}/index.ts
       shell: bash
     - name: deploy
-      run: echo "y" | yes | head -n 1 | clasp push
+      run: echo "y" | yes | head -n 1 | npx clasp push
       shell: bash
