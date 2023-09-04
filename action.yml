@@ -19,6 +19,10 @@ inputs:
   CLASP_SCRIPT_ID:
     description: "Clasp Script ID"
     required: false
+  ROOT_DIR:
+    description: "Root Directory for Pushing files"
+    required: false
+    default: "./src"
 runs:
   using: "composite"
   steps:
