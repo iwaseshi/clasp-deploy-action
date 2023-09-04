@@ -28,6 +28,7 @@ runs:
   steps:
     - name: pre processing
       run: |
+        pwd
         npm install --frozen-lockfile
         ls node_modules/.bin
       shell: bash
