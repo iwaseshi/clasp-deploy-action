@@ -26,15 +26,13 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Navigate to action-dir and install dependencies
+    - name: Install dependencies in custom action directory
       run: |
-        original_dir=$(pwd)
         cd ${{ github.action_path }}
         yarn install --frozen-lockfile
-        cd $original_dir
       shell: bash
 
-    - name: set environment variables
+    - name: Setup environment variables
       run: |
         echo "ACCESS_TOKEN=${{ inputs.ACCESS_TOKEN }}" >> $GITHUB_ENV
         echo "ID_TOKEN=${{ inputs.ID_TOKEN }}" >> $GITHUB_ENV
@@ -43,13 +41,13 @@ runs:
         echo "CLIENTSECRET=${{ inputs.CLIENTSECRET }}" >> $GITHUB_ENV
       shell: bash
 
-    - name: create clasprc.json
+    - name: Create clasprc.json
       run: |
         npx ts-node ${{ github.action_path }}/index.ts
       shell: bash
 
-    - name: deploy
+    - name: Deploy to Google Apps Script
       run: |
         echo '{"scriptId": "${{ inputs.CLASP_SCRIPT_ID }}", "rootDir": "${{ inputs.ROOT_DIR }}"}' > .clasp.json
-        echo "y" | npx clasp push
+        echo "y" | ${{ github.action_path }}/node_modules/.bin/clasp push
       shell: bash
