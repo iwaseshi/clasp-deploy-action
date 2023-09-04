@@ -29,6 +29,7 @@ runs:
     - name: pre processing
       run: |
         yarn install --frozen-lockfile
+        echo "./node_modules/.bin/" >> $GITHUB_PATH
       shell: bash
     - name: set environment variables
       run: |
