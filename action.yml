@@ -16,9 +16,9 @@ inputs:
   CLIENTSECRET:
     description: "Client Secret"
     required: true
-  CLASP_SCRIPT_ID:
-    description: "Clasp Script ID"
-    required: false
+  SCRIPT_ID:
+    description: "Script ID"
+    required: true
   ROOT_DIR:
     description: "Root Directory for Pushing files"
     required: false
@@ -48,6 +48,6 @@ runs:
 
     - name: Deploy to Google Apps Script
       run: |
-        echo '{"scriptId": "${{ inputs.CLASP_SCRIPT_ID }}", "rootDir": "${{ inputs.ROOT_DIR }}"}' > .clasp.json
+        echo '{"scriptId": "${{ inputs.SCRIPT_ID }}", "rootDir": "${{ inputs.ROOT_DIR }}"}' > .clasp.json
         echo "y" | ${{ github.action_path }}/node_modules/.bin/clasp push
       shell: bash
