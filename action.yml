@@ -43,6 +43,6 @@ runs:
       shell: bash
     - name: deploy
       run: |
-        echo '{"scriptId": "${{ inputs.CLASP_SCRIPT_ID }}", "rootDir": "dist"}' > .clasp.json
+        echo '{"scriptId": "${{ inputs.CLASP_SCRIPT_ID }}", "rootDir": "${{ inputs.ROOT_DIR }}"}' > .clasp.json
         echo "y" | npx clasp push
       shell: bash
