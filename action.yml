@@ -16,6 +16,9 @@ inputs:
   CLIENTSECRET:
     description: "Client Secret"
     required: true
+  CLASP_SCRIPT_ID:
+    description: "Clasp Script ID"
+    required: false
 runs:
   using: "composite"
   steps:
